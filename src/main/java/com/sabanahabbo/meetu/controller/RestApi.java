@@ -152,4 +152,10 @@ public class RestApi {
         return eventRepository.getAllEventsByInterest(Params);
     }
 
+    // trae todos los eventos por la lista de grupos
+    @GetMapping("/service/events/groups")
+    public List<?> getAllEventsByGroups(@RequestParam List<Long> Params) {
+        return eventRepository.getAllEventsByGroups(Params);
+    }
+
 }

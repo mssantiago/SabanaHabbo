@@ -18,4 +18,8 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 
     @Query(value = "select e.id, date, interest, message, place, time from events e INNER JOIN interests int on int.name = e.interest INNER JOIN student_interest stint on stint.interest_id = int.id INNER JOIN students st on stint.student_id = st.id where e.interest in (:PARAM)", nativeQuery = true)
     List <Map<String, Object>> getAllEventsByInterest(@Param("PARAM") List<String> PARAM);
+
+    @Query(value = "select e.id, date, message, place, time, gr.title from events e INNER JOIN groups gr on gr.id = e.group_id where e.group_id in (:PARAM)", nativeQuery = true)
+    List <Map<String, Object>> getAllEventsByGroups(@Param("PARAM") List<Long> PARAM);
+
 }
