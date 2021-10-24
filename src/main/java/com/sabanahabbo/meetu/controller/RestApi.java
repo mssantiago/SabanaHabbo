@@ -52,8 +52,7 @@ public class RestApi {
     private String[] nameListF = { "Andrea", "Valentina", "Mery Jane", "Khloe", "Zoe" };
     private String[] nameListM = { "Tom", "Andrew", "Jankos", "Adam" };
     private String[] lastNameList = { "Cajamarca", "Latorre", "Murcia", "West" };
-    private String[] careerList = { "Ingeniería informática", "Medicina", "Ingeniería industrial",
-            "Ingeniería mecánica" };
+    private String[] careerList = { "Ingeniería informática", "Medicina", "Ingeniería industrial", "Ingeniería mecánica" };
 
     // agregar estudiante cuando ingresa password, email, y selecciona su avatar
     @PostMapping("/service/students")
