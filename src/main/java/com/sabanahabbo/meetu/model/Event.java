@@ -34,6 +34,6 @@ public class Event implements Serializable{
     private String message;
 
     @ManyToOne()
-    @JoinColumn(name = "group_id")
+    @JoinColumn(name = "group_id", referencedColumnName = "id")
     private Group group;
 }
