@@ -52,7 +52,8 @@ public class RestApi {
     private String[] nameListF = { "Andrea", "Valentina", "Mery Jane", "Khloe", "Zoe" };
     private String[] nameListM = { "Tom", "Andrew", "Jankos", "Adam" };
     private String[] lastNameList = { "Cajamarca", "Latorre", "Murcia", "West" };
-    private String[] careerList = { "Ingeniería informática", "Medicina", "Ingeniería industrial", "Ingeniería mecánica" };
+    private String[] careerList = { "Ingeniería informática", "Medicina", "Ingeniería industrial",
+            "Ingeniería mecánica" };
 
     // agregar estudiante cuando ingresa password, email, y selecciona su avatar
     @PostMapping("/service/students")
@@ -70,6 +71,9 @@ public class RestApi {
     public ResponseEntity<Student> updateStudent(@RequestBody Student student) {
         Student updateStudent = studentRepository.findByEmail(student.getEmail())
                 .orElseThrow(() -> new EntityNotFoundException());
+        // update es el estudiante encontrado a opartir de lo mandado
+        System.out.println(updateStudent);
+
         if (!student.getInterests().isEmpty())
             updateStudent.setInterests(student.getInterests());
         if (!student.getGroups().isEmpty())
@@ -90,7 +94,7 @@ public class RestApi {
         } else {
             if (findStudent.get().getEmail().equals(userLogin.getEmail())
                     && passwordEncoder.matches(userLogin.getPassword(), findStudent.get().getPassword())) {
-                return new ResponseEntity<>(HttpStatus.OK);
+                return new ResponseEntity<>(findStudent, HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
             }
