@@ -45,19 +45,23 @@ public class Student implements Serializable {
     private String career;
     private String status;
 
+    @ToString.Exclude
     @ManyToOne()
     @JoinColumn(name = "university_id")
     private University university;
 
+    @ToString.Exclude
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "avatar_id", referencedColumnName = "id")
     private Avatar avatar;
 
+    @ToString.Exclude
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(name = "student_group", joinColumns = { @JoinColumn(name = "student_id") }, inverseJoinColumns = {
             @JoinColumn(name = "group_id") })
     private List<Group> groups;
 
+    @ToString.Exclude
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(name = "student_interest", joinColumns = { @JoinColumn(name = "student_id") }, inverseJoinColumns = {
             @JoinColumn(name = "interest_id") })

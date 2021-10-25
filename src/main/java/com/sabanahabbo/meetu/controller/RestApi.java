@@ -6,6 +6,7 @@ import java.util.Random;
 
 import javax.persistence.EntityNotFoundException;
 
+import com.sabanahabbo.meetu.model.Avatar;
 import com.sabanahabbo.meetu.model.Event;
 import com.sabanahabbo.meetu.model.Student;
 import com.sabanahabbo.meetu.model.UserLogin;
@@ -58,10 +59,11 @@ public class RestApi {
     // agregar estudiante cuando ingresa password, email, y selecciona su avatar
     @PostMapping("/service/students")
     public Student addStudent(@RequestBody Student student) {
-        student.setName(student.getAvatar().getSexo().equals("M") ? nameListF[new Random().nextInt(nameListF.length)]
-                : nameListM[new Random().nextInt(nameListM.length)]);
+        student.setName(student.getAvatar().getSexo().equals("M") ? nameListF[new Random().nextInt(nameListF.length)]: nameListM[new Random().nextInt(nameListM.length)]);
         student.setLastName(lastNameList[new Random().nextInt(lastNameList.length)]);
         student.setCareer(careerList[new Random().nextInt(careerList.length)]);
+
+
         return studentRepository.save(student);
     }
 
@@ -69,17 +71,13 @@ public class RestApi {
     // estudiante
     @PutMapping("/service/students")
     public ResponseEntity<Student> updateStudent(@RequestBody Student student) {
-        Student updateStudent = studentRepository.findByEmail(student.getEmail())
-                .orElseThrow(() -> new EntityNotFoundException());
+        Student updateStudent = studentRepository.findByEmail(student.getEmail()).orElseThrow(() -> new EntityNotFoundException());
         // update es el estudiante encontrado a opartir de lo mandado
-        System.out.println(updateStudent);
-
         if (!student.getInterests().isEmpty())
             updateStudent.setInterests(student.getInterests());
         if (!student.getGroups().isEmpty())
             updateStudent.setGroups(student.getGroups());
 
-        updateStudent.setStatus(student.getStatus());
         studentRepository.save(updateStudent);
         return new ResponseEntity<>(updateStudent, HttpStatus.OK);
     }
