@@ -168,4 +168,10 @@ public class RestApi {
 
     }
 
+    @GetMapping("/service/interets")
+    public List<?> getAlllInterest() {
+        return interestRepository.findAll();
+
+    }
+
 }
