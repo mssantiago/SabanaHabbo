@@ -29,7 +29,6 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Entity
-// @JsonIgnoreProperties({ "groups",})
 @Table(name = "students")
 public class Student implements Serializable {
 
@@ -50,7 +49,8 @@ public class Student implements Serializable {
     @JoinColumn(name = "university_id")
     private University university;
 
-    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "avatar_id", referencedColumnName = "id")
     private Avatar avatar;
 
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
