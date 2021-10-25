@@ -59,10 +59,10 @@ public class RestApi {
     // agregar estudiante cuando ingresa password, email, y selecciona su avatar
     @PostMapping("/service/students")
     public Student addStudent(@RequestBody Student student) {
-        student.setName(student.getAvatar().getSexo().equals("M") ? nameListF[new Random().nextInt(nameListF.length)]: nameListM[new Random().nextInt(nameListM.length)]);
+        student.setName(student.getAvatar().getSexo().equals("M") ? nameListF[new Random().nextInt(nameListF.length)]
+                : nameListM[new Random().nextInt(nameListM.length)]);
         student.setLastName(lastNameList[new Random().nextInt(lastNameList.length)]);
         student.setCareer(careerList[new Random().nextInt(careerList.length)]);
-
 
         return studentRepository.save(student);
     }
@@ -71,7 +71,8 @@ public class RestApi {
     // estudiante
     @PutMapping("/service/students")
     public ResponseEntity<Student> updateStudent(@RequestBody Student student) {
-        Student updateStudent = studentRepository.findByEmail(student.getEmail()).orElseThrow(() -> new EntityNotFoundException());
+        Student updateStudent = studentRepository.findByEmail(student.getEmail())
+                .orElseThrow(() -> new EntityNotFoundException());
         // update es el estudiante encontrado a opartir de lo mandado
         if (!student.getInterests().isEmpty())
             updateStudent.setInterests(student.getInterests());
@@ -108,6 +109,7 @@ public class RestApi {
     // para crear un evento hacedlo desde aquí
     @PostMapping("/service/university/events")
     public Event createEvent(@RequestBody Event event) {
+        System.out.println(event.toString());
         return eventRepository.save(event);
     }
 
@@ -157,6 +159,13 @@ public class RestApi {
     @GetMapping("/service/events/groups")
     public List<?> getAllEventsByGroups(@RequestParam List<Long> Params) {
         return eventRepository.getAllEventsByGroups(Params);
+    }
+
+    // trae todos los eventos por la lista de grupos
+    @GetMapping("/service/events")
+    public List<?> getAlllEvents() {
+        return eventRepository.findAll();
+
     }
 
 }
