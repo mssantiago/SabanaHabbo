@@ -3,7 +3,6 @@ package com.sabanahabbo.meetu.model;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -35,8 +34,6 @@ public class University implements Serializable  {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @ElementCollection(targetClass=String.class)
-    private List<String> interests;
 
     @OneToMany(targetEntity=Student.class, mappedBy="university", fetch=FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
