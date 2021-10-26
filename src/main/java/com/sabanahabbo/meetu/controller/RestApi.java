@@ -6,7 +6,6 @@ import java.util.Random;
 
 import javax.persistence.EntityNotFoundException;
 
-import com.sabanahabbo.meetu.model.Avatar;
 import com.sabanahabbo.meetu.model.Event;
 import com.sabanahabbo.meetu.model.Student;
 import com.sabanahabbo.meetu.model.UserLogin;
@@ -85,7 +84,7 @@ public class RestApi {
 
     // verifica si existe el email, si manda error de no encontrado es por que debe
     // seguir a crearse, o por el contrario, compara la password de la bd
-    @GetMapping("/service/students/login")
+    @PostMapping("/service/students/login")
     public ResponseEntity<?> findStudentToLoad(@RequestBody UserLogin userLogin) {
         Optional<Student> findStudent = studentRepository.findByEmail(userLogin.getEmail());
         if (!findStudent.isPresent()) {
